@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QR Code Generator</title>
+</head>
+<body>
+    <h1>Generate QR Code</h1>
+    <form id="qr-form">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br>
+
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" required><br>
+
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address" required><br>
+
+        <label for="phoneNumber">Phone Number:</label>
+        <input type="text" id="phoneNumber" name="phoneNumber" required><br>
+
+        <input type="submit" value="Generate QR Code">
+    </form>
+
+    <div id="qrcode"></div>
+
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('qr-form');
+            const qrCodeDiv = document.getElementById('qrcode');
+
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                // Get form values
+                const name = document.getElementById('name').value;
+                const lastName = document.getElementById('lastName').value;
+                const address = document.getElementById('address').value;
+                const phoneNumber = document.getElementById('phoneNumber').value;
+
+                // Combine the data into a string
+                const data = `Name: ${name}\nLast Name: ${lastName}\nAddress: ${address}\nPhone Number: ${phoneNumber}`;
+
+                // Generate QR code
+                qrCodeDiv.innerHTML = ''; // Clear previous QR code
+                const qrcode = new QRCode(qrCodeDiv, {
+                    text: data,
+                    width: 128,
+                    height: 128
+                });
+            });
+        });
+    </script>
+</body>
+</html>
